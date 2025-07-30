@@ -5,7 +5,7 @@
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
-from airflow.utils.dates import days_ago
+from datetime import datetime, timedelta
 from airflow.utils.log.logging_mixin import LoggingMixin # Used for logger in classes
 import pandas as pd
 import sqlalchemy as sa
@@ -1011,7 +1011,7 @@ def execute_table_migration_task(**context):
 # Define the Airflow DAG
 with DAG(
     dag_id='snowflake_data_migration_dag',
-    start_date=days_ago(1),
+    start_date=datetime.now(0) - timedelta(days=1),
     schedule_interval=None,
     catchup=False,
     tags=['data_migration', 'snowflake', 'sqlserver', 'fastapi'],
